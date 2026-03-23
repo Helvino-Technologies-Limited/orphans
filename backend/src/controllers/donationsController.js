@@ -25,7 +25,7 @@ exports.create = async (req, res) => {
     const result = await db.query(
       `INSERT INTO donations (donor_name, donor_email, donor_phone, amount, donation_type, item_description, payment_method, mpesa_ref, receipt_no, notes, recorded_by)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`,
-      [donor_name, donor_email, donor_phone, amount, donation_type, item_description, payment_method, mpesa_ref, receipt_no, notes, req.user.id]
+      [donor_name, donor_email || null, donor_phone || null, amount ? parseFloat(amount) : null, donation_type, item_description || null, payment_method || null, mpesa_ref || null, receipt_no, notes || null, req.user.id]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {

@@ -21,9 +21,14 @@ exports.create = async (req, res) => {
     let userId = null;
     if (email && password) {
       const hash = await bcrypt.hash(password, 12);
+      const validUserRoles = ['admin', 'manager', 'caregiver', 'nurse'];
+      const userRole = validUserRoles.includes(role) ? role : 'caregiver';
       const userResult = await db.query(
-        `INSERT INTO users (name, email, password_hash, role, phone) VALUES ($1,$2,$3,$4,$5) RETURNING id`,
-        [name, email, hash, role === 'admin' ? 'admin' : 'caregiver', phone]
+        `INSERT INTO users (name, email, password_hash, role, phone)
+         VALUES ($1,$2,$3,$4,$5)
+         ON CONFLICT (email) DO UPDATE SET name=EXCLUDED.name, password_hash=EXCLUDED.password_hash
+         RETURNING id`,
+        [name, email, hash, userRole, phone || null]
       );
       userId = userResult.rows[0].id;
     }
@@ -31,7 +36,7 @@ exports.create = async (req, res) => {
     const result = await db.query(
       `INSERT INTO staff (user_id, name, role, phone, email, id_number, employment_date, shift)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
-      [userId, name, role, phone, email, id_number, employment_date, shift]
+      [userId, name, role, phone || null, email || null, id_number || null, employment_date || null, shift || null]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {

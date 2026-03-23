@@ -53,7 +53,7 @@ exports.create = async (req, res) => {
     const result = await db.query(
       `INSERT INTO children (child_no, full_name, gender, dob, estimated_age, background, guardian_name, guardian_contact, guardian_relationship, special_needs, admission_date, created_by)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING *`,
-      [child_no, full_name, gender, dob || null, estimated_age, background, guardian_name, guardian_contact, guardian_relationship, special_needs, admission_date || new Date(), req.user.id]
+      [child_no, full_name, gender, dob || null, estimated_age ? parseInt(estimated_age) : null, background, guardian_name, guardian_contact, guardian_relationship, special_needs, admission_date || new Date(), req.user.id]
     );
 
     await auditLog(req.user.id, 'CREATE_CHILD', 'child', result.rows[0].id, { full_name }, req);

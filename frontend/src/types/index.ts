@@ -82,6 +82,7 @@ export interface Activity {
   description: string;
   activity_date: string;
   recorded_by_name?: string;
+  created_at?: string;
 }
 
 export interface Donation {

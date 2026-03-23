@@ -11,16 +11,16 @@ import { getInitials } from '../../utils/helpers';
 interface SidebarProps { onClose?: () => void; }
 
 const navItems = [
-  { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { path: '/children', icon: Users, label: 'Children' },
-  { path: '/staff', icon: UserCheck, label: 'Staff' },
-  { path: '/health', icon: Stethoscope, label: 'Health' },
-  { path: '/activities', icon: Activity, label: 'Activities' },
-  { path: '/donations', icon: DollarSign, label: 'Donations' },
-  { path: '/inventory', icon: Package, label: 'Inventory' },
-  { path: '/incidents', icon: AlertTriangle, label: 'Incidents' },
-  { path: '/reports', icon: BarChart3, label: 'Reports' },
-  { path: '/settings', icon: Settings, label: 'Settings' },
+  { path: '/app/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+  { path: '/app/children', icon: Users, label: 'Children' },
+  { path: '/app/staff', icon: UserCheck, label: 'Staff' },
+  { path: '/app/health', icon: Stethoscope, label: 'Health' },
+  { path: '/app/activities', icon: Activity, label: 'Activities' },
+  { path: '/app/donations', icon: DollarSign, label: 'Donations' },
+  { path: '/app/inventory', icon: Package, label: 'Inventory' },
+  { path: '/app/incidents', icon: AlertTriangle, label: 'Incidents' },
+  { path: '/app/reports', icon: BarChart3, label: 'Reports' },
+  { path: '/app/settings', icon: Settings, label: 'Settings' },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {

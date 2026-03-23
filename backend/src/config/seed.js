@@ -6,12 +6,12 @@ async function seed() {
   console.log('🌱 Seeding database...');
 
   const adminId = uuidv4();
-  const password = await bcrypt.hash('Admin@1234', 12);
+  const password = await bcrypt.hash('Admin@2026', 12);
 
   await db.query(`
     INSERT INTO users (id, name, email, password_hash, role, phone)
     VALUES ($1, 'System Administrator', 'admin@omms.org', $2, 'admin', '0700000000')
-    ON CONFLICT (email) DO NOTHING
+    ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash
   `, [adminId, password]);
 
   const caregiverId = uuidv4();
@@ -42,7 +42,7 @@ async function seed() {
   }
 
   console.log('✅ Seeding complete!');
-  console.log('📧 Admin: admin@omms.org | Password: Admin@1234');
+  console.log('📧 Admin: admin@omms.org | Password: Admin@2026');
   console.log('📧 Caregiver: caregiver@omms.org | Password: Care@1234');
   process.exit(0);
 }

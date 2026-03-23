@@ -69,7 +69,7 @@ const ChildrenPage: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {children.map(child => (
-            <div key={child.id} onClick={() => navigate(`/children/${child.id}`)} className="card cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group">
+            <div key={child.id} onClick={() => navigate(`/app/children/${child.id}`)} className="card cursor-pointer hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group">
               <div className="flex items-start gap-3">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-sm">
                   {child.photo_url ? <img src={child.photo_url} alt={child.full_name} className="w-12 h-12 rounded-xl object-cover" /> : getInitials(child.full_name)}
